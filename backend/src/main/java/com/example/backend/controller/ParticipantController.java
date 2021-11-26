@@ -89,7 +89,7 @@ public class ParticipantController {
                 p.setStructure(getCellValue(row, 2));
                 p.setDomaine(getCellValue(row, 3));
                 p.setEmail(getCellValue(row, 4));
-                p.setParticipantGenre(ParticipantGenre.valueOf(getCellValue(row, 5)));
+                p.setGenre(ParticipantGenre.valueOf(getCellValue(row, 5)));
 
                 participantService.addParticipant(p);
                 System.out.println(p);
@@ -116,4 +116,5 @@ public class ParticipantController {
         result = Integer.parseInt(str);
         return result;
     }
+
 }

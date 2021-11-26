@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface ParticipantRepository  extends JpaRepository<Participant,Long> {
     @Query("SELECT p FROM Participant p WHERE p.email = :email")
     Optional<Participant> findParticipant(@Param("email") String email);
+
 }

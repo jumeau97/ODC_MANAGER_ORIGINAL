@@ -38,7 +38,7 @@ public class Participant implements Serializable {
 	@NotBlank(message = "Veuillez renseigner l'email du participant...")
 	private String email;
 	@Enumerated(EnumType.STRING)
-	private ParticipantGenre participantGenre;
+	private ParticipantGenre genre;
 	@ManyToOne
 	private Administrateur administrateur;
 	
