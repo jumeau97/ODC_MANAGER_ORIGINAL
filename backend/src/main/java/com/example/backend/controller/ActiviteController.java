@@ -38,9 +38,8 @@ public class ActiviteController {
     @ApiOperation(value = "Enregistrer une activité", notes = "cette methode permet d'ajouter une activité", response = Activite.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet activité cree"),
 			@ApiResponse(code = 400, message = "l'objet activité n'est pas valide") })
-    public String ajouterActivite(@RequestBody Activite activite){
+    public void ajouterActivite(@RequestBody Activite activite){
         this.activiteService.ajouterActivite(activite);
-        return "Activité enregistrer avec succes";
     }
 
     //MODIFIER UNE ACTIVITE

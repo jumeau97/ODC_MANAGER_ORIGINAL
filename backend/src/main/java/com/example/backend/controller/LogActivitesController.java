@@ -25,9 +25,8 @@ public class LogActivitesController {
 	LogActivitesService logactivitesService;
 	 //ajouter d'une historique
 	@PostMapping("/addlog")
-    public String savelog(@RequestBody LogActivites logactivites){
+    public void savelog(@RequestBody LogActivites logactivites){
 		logactivitesService.addLogActivites(logactivites);
-        return  "historique enregistrer avec succès";
     }
 	//lister historique
 	  @GetMapping("/listehistorique")
@@ -41,8 +40,7 @@ public class LogActivitesController {
 	    }
 	    //supprimer une histoirique
 	    @DeleteMapping("/deletehistoire/{id}")
-	    public String suppressionhistoire(@PathVariable Long id){
+	    public void suppressionhistoire(@PathVariable Long id){
 	    	logactivitesService.deleteLogActivitesByid(id);
-	        return "historique supprimer avec succès";
 	    }
 }

@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,19 @@ public class ParticipantServiceImplement implements ParticipantService {
 	}
 
 	@Override
-	public Long countM() {
-		return participantRepository.countM();
+	public int findByparticipantGenre(ParticipantGenre genre) {
+		
+		return participantRepository.findByparticipantGenre(genre);
 	}
 
-	@Override
-	public Long countF() {
-		return participantRepository.countF() ;
-	}
+//	@Override
+//	public Long countM() {
+//		return participantRepository.countM();
+//	}
+//
+//	@Override
+//	public Long countF() {
+//		return participantRepository.countF() ;
+//	}
 
 }

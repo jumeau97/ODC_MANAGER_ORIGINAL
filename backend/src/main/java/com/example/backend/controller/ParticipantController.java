@@ -120,13 +120,9 @@ public class ParticipantController {
         result = Integer.parseInt(str);
         return result;
     }
-    @GetMapping("/NbreHomme")
-        public Long countHomme(){
-        return participantService.countM();
-    }
-    @GetMapping("/NbreFemme")
-    public Long countFemme(){
-        return participantService.countF();
+    @GetMapping("/participantGenre={genre}")
+    public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
+    	return participantService.findByparticipantGenre(genre);
     }
 
 }

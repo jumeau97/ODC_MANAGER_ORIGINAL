@@ -43,8 +43,8 @@ public class ParticipationController {
     @ApiOperation(value = "Modifier une participation", notes = "cette methode permet de modifier une participation", response = Participation.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participation modifié"),
 			@ApiResponse(code = 400, message = "l'objet participation n'est pas valide") })
-    public String updateParticipation(@PathVariable("id") Long id ,@RequestBody Participation p) {
-        return "mis ajour effectué";
+    public void updateParticipation(@PathVariable("id") Long id ,@RequestBody Participation p) {
+        participationService.updateParticipation(id, p);
     }
 
     @GetMapping("/listeParticipation")
