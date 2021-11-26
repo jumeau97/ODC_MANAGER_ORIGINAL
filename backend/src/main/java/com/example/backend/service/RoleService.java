@@ -23,6 +23,7 @@ public interface RoleService {
    void suprimer_role (Long Id);
    public List <Role> listeRole();
    public Role getRoleById (Long id);
+   public Role verifie_role (String libelle);
     
 
 }

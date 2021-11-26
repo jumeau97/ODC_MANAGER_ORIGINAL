@@ -77,4 +77,10 @@ public class RoleServiceImp implements RoleService {
 				);
 	}
 
+    @Override
+    public Role verifie_role(String libelle) {
+        return rolerepository.findByLibelle(libelle);
+    }
+        
+
 }

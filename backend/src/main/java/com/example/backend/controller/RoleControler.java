@@ -62,6 +62,16 @@ public class RoleControler {
        return roleserviceimp.getRoleById(id);
    }
    
+   @GetMapping("/role/verification/{libelle}")
+   @ApiOperation(value = "rechercher un role par libelle", notes = "cette methode permet de rechercher un role par son libelle", response = Role.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "le libelle trouvé dans la BDD"),
+			@ApiResponse(code = 404, message = "aucun role avec cet libelle n'existe dans la BDD") })
+   public Role getRoleByLibelle(@PathVariable String libelle){
+       return roleserviceimp.verifie_role(libelle);
+   }
+   
+   
+   
     @DeleteMapping ("/role/delete/{id}")
     @ApiOperation(value = "supprimer un role", notes = "cette methode permet de supprimer un role par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le role a été supprimé"),
