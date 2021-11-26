@@ -1,7 +1,5 @@
 package com.example.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,35 +26,36 @@ public class ExerciceController {
 	ExerciceService exerciceService;
 	 //ajouter un exercice
 	@PostMapping("/ajoutExercice")
-    public String ajouExercice(@RequestBody Exercice exercice){
+    public void ajouExercice(@RequestBody Exercice exercice){
         exerciceService.ajoutExercice(exercice);
-        return  "exercice enregistrer avec succès";
+
     }
 	 //lister les exercice
 	  @GetMapping("/listeExercice")
-	    public List<Exercice> listExercice(){
-	        return exerciceService.listExercice();
+	    public void listExercice(){
+
+		exerciceService.listExercice();
 	    }
 	//un exercice par son identifiant
 	    @GetMapping("/ExerciceById/{id}")
-	    public Exercice unExercice(@PathVariable("id") Long id){
-	        return exerciceService.ExerciceById(id);
+	    public void unExercice(@PathVariable("id") Long id){
+		exerciceService.ExerciceById(id);
 	    }
 	  //mise à jour exercice
 	    @PutMapping("/updateExercice/{id}")
-	    public String reExercice(@PathVariable Long id, @RequestBody Exercice exercice){
+	    public void reExercice(@PathVariable Long id, @RequestBody Exercice exercice){
 	        exerciceService.updateExcercice(id, exercice);
-	        return "exercice modifier avec succès";
+
 	    }
 	  //supprimer un exercice
 	    @DeleteMapping("/supprimerExercice/{id}")
-	    public String supExercice(@PathVariable Long id){
+	    public void supExercice(@PathVariable Long id){
 	        exerciceService.deleteExercice(id);
-	        return "exercice supprimer avec succès";
+
 	    }
 	    @GetMapping("/ExerciceByYear={annee}")
-	    public List<Exercice> recherExerciceAnnee(@PathVariable("annee") String annee){
-	        return this.exerciceService.getExerciceByAnnee(annee);
+	    public void recherExerciceAnnee(@PathVariable("annee") String annee){
+	        this.exerciceService.getExerciceByAnnee(annee);
 	    }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParticipantServiceImplement implements ParticipantService {
@@ -13,8 +14,20 @@ public class ParticipantServiceImplement implements ParticipantService {
 	ParticipantRepository participantRepository;
 
 	@Override
-	public Participant addParticipant(Participant participant) {
-		return participantRepository.save(participant);
+	public String addParticipant(Participant participant) {
+		Optional<Participant> optionalParticipant = this.participantRepository.findParticipant(participant.getEmail());
+
+		//vérifier si email existe dans la base
+		if(!optionalParticipant.isPresent())
+		{
+			participantRepository.save(participant);
+			return "Participant ajouté avec succèss...";
+		}else{
+			System.out.println("Email : " + participant.getEmail() + " existe déjà...");
+			return "Email : " + participant.getEmail() + " existe déjà...";
+		}
+
+		//return participantRepository.save(participant);
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.example.backend.controller;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.service.ParticipantService;
-import com.example.backend.service.ParticipantServiceImplement;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,24 +30,22 @@ public class ParticipantController {
     @Autowired
     ParticipantService participantService;
 
-    @PostMapping(value="/participant")
+    @PostMapping(value="/AddParticipant")
     @ApiOperation(value = "Enregistrer un participant", notes = "cette methode permet d'ajouter un participant", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participant cree"),
 			@ApiResponse(code = 400, message = "l'objet participant n'est pas valide") })
-    public String save(@RequestBody Participant participant){
+    public void save(@RequestBody Participant participant){
         participantService.addParticipant(participant);
-        return "Participant ajouté avec succèss...";
     }
     @DeleteMapping(value = "/deleteParticipant/{id}")
     @ApiOperation(value = "supprimer un participant", notes = "cette methode permet de supprimer un participant par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
-    public String delete (@PathVariable("id") Long id){
+    public void delete (@PathVariable("id") Long id){
        participantService.deleteParticipant(id);
-       return "Participant supprimé avec succèss...";
     }
 
-    @PutMapping(path = "/participant/{id}")
+    @PutMapping(path = "/UpdateParticipant/{id}")
     @ApiOperation(value = "Modifier un participant", notes = "cette methode permet de modifier un participant", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participant modifié"),
 			@ApiResponse(code = 400, message = "l'objet participant n'est pas valide") })
@@ -57,7 +54,7 @@ public class ParticipantController {
     }
 
     //pour afficher la liste
-    @GetMapping("/participants")
+    @GetMapping("/ListParticipant")
     @ApiOperation(value = "renvoi la liste des particiapnt", notes = "cette methode permet de chercher et renvoyer la liste des participant qui existent"
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
@@ -67,7 +64,7 @@ public class ParticipantController {
     }
     
     //aficher participant par son id
-    @GetMapping("/participantById/{id}")
+    @GetMapping("/getParticipantById/{id}")
     public Participant ParticipantById(@PathVariable("id") Long id) {
 		return participantService.ParticipantById(id);
 	}
