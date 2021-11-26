@@ -8,4 +8,6 @@ public interface ParticipantService {
     public List<Participant> listParticipant();
     void deleteParticipant( Long id);
     Participant ParticipantById(Long id);
+    public Long countM();
+    public Long countF();
 }

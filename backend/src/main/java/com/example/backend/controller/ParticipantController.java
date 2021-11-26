@@ -117,4 +117,12 @@ public class ParticipantController {
         return result;
     }
 
+    @GetMapping("/NbreHomme")
+    public Long countHomme(){
+        return participantService.countM();
+    }
+    @GetMapping("/NbreFemme")
+    public Long countFemme(){
+        return participantService.countF();
+    }
 }

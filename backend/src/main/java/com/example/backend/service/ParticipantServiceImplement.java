@@ -59,4 +59,14 @@ public class ParticipantServiceImplement implements ParticipantService {
 		return participantRepository.findById(id).get();
 	}
 
+	@Override
+	public Long countM() {
+		return participantRepository.countM();
+	}
+
+	@Override
+	public Long countF() {
+		return participantRepository.countF();
+	}
+
 }
