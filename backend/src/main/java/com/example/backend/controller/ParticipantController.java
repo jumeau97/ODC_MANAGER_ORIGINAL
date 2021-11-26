@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -62,7 +63,9 @@ public class ParticipantController {
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
-    public List<Participant> list(){
+    public List<Participant> list()
+    {
+
         return participantService.listParticipant();
     }
     
@@ -74,7 +77,6 @@ public class ParticipantController {
     
     @PostMapping("/uploadexcel")
     public List<Participant> importExcelFile(@RequestParam("file") MultipartFile files) throws IOException, IOException {
-
         List<Participant> participants = new ArrayList<>();
         System.out.println(files);
 
@@ -93,7 +95,6 @@ public class ParticipantController {
                 p.setDomaine(getCellValue(row, 3));
                 p.setEmail(getCellValue(row, 4));
                 p.setParticipantGenre(ParticipantGenre.valueOf(getCellValue(row, 5)));
-
                 participantService.addParticipant(p);
                 System.out.println(p);
             }
@@ -119,4 +120,13 @@ public class ParticipantController {
         result = Integer.parseInt(str);
         return result;
     }
+    @GetMapping("/NbreHomme")
+        public Long countHomme(){
+        return participantService.countM();
+    }
+    @GetMapping("/NbreFemme")
+    public Long countFemme(){
+        return participantService.countF();
+    }
+
 }
