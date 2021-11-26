@@ -30,9 +30,9 @@ public class Exercice implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String annee;
-	private Date date_debut;
-	private Date date_fin;
-	//@Enumerated(EnumType.STRING)	
+	private Date dateDebut;
+	private Date dateFin;
+	@Enumerated(EnumType.STRING)
 	private Statut statut;
 	@Enumerated(EnumType.STRING)
 	private Etat etat;

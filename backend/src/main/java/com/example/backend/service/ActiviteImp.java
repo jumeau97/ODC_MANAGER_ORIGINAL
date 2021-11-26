@@ -1,17 +1,22 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Activite;
+import com.example.backend.model.Exercice;
 import com.example.backend.repository.ActiviteRepository;
+import com.example.backend.repository.ExerciceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class ActiviteImp implements ActiviteService{
     @Autowired
     ActiviteRepository activiteRepository;
+    ExerciceRepository exerciceRepository;
 
     @Override
     public String ajouterActivite(Activite activite) {
@@ -25,8 +30,8 @@ public class ActiviteImp implements ActiviteService{
         Activite activiteAncien = activiteRepository.findById(Id).get();
         activiteAncien.setLibelle(activite.getLibelle());
         activiteAncien.setType(activite.getType());
-        activiteAncien.setDate_debut(activite.getDate_debut());
-        activiteAncien.setDate_fin(activite.getDate_fin());
+        activiteAncien.setDateDebut(activite.getDateDebut());
+        activiteAncien.setDateFin(activite.getDateFin());
         activiteAncien.setEtat(activite.getEtat());
     }
 
@@ -45,6 +50,33 @@ public class ActiviteImp implements ActiviteService{
     public List<Activite> getAllActivite() {
         return activiteRepository.findAll();
     }
+
+    @Override
+    public List<Activite> getActiviteByAnnee(String annee) {
+        return activiteRepository.findActiviteByAnnee(annee);
+    }
+
+    @Override
+    public List<Activite> getActiviteByMonth(int year, int month) {
+        LocalDate initial = LocalDate.of(year, month, 1);
+        LocalDate start = initial.withDayOfMonth(1);
+        LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+        return activiteRepository.getActiviteByDateDebutGreaterThanEqualAndDateDebutLessThanEqual(start, end);
+    }
+
+
+
+
+
+   /* @Override
+    public List<Activite> getActiviteByExercice(Long id, Exercice exercice) {
+        return activiteRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Activite> getActiviteByAnnee(String annee) {
+        return activiteRepository.findActiviteByAnnee(annee);
+    }*/
 
 
 }
