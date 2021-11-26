@@ -59,7 +59,7 @@ public class ParticipantController {
     //pour afficher la liste
     @GetMapping("/participants")
     @ApiOperation(value = "renvoi la liste des particiapnt", notes = "cette methode permet de chercher et renvoyer la liste des participant qui existent"
-			+ "dans la BDD", responseContainer = "list<particiapnt>")
+			+ "dans la BDD", responseContainer = "list<particiapnt>", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
     public List<Participant> list(){
@@ -68,11 +68,17 @@ public class ParticipantController {
     
     //aficher participant par son id
     @GetMapping("/participantById/{id}")
+    @ApiOperation(value = "renvoi la liste d'un particiapnt", notes = "cette methode permet de chercher et renvoyer les informations d'un seul participant"
+            + "dans la BDD", response = Participant.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Participant récuperer avec succés") })
     public Participant ParticipantById(@PathVariable("id") Long id) {
 		return participantService.ParticipantById(id);
 	}
     
     @PostMapping("/uploadexcel")
+    @ApiOperation(value = "Enregistrer des participants par listes", notes = "cette methode permet d'ajouter des participant en télécharger un fichier excel", response = Participant.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Les participants ont été enregister"),
+            @ApiResponse(code = 400, message = "l'objet participants n'est pas valide") })
     public List<Participant> importExcelFile(@RequestParam("file") MultipartFile files) throws IOException, IOException {
 
         List<Participant> participants = new ArrayList<>();
@@ -96,13 +102,14 @@ public class ParticipantController {
 
                 participantService.addParticipant(p);
                 System.out.println(p);
+
             }
         }
 
         return participants;
     }
 
-
+    @ApiOperation(value = "Parcourir les cellules excel", notes = "cette methode permet de parcourir les différentes colonnes du fichier excel et attribué chaque valeur de l'indice du tableau excel aux attributs correspondants", response = Participant.class)
     private String getCellValue(Row row, int cellNo) {
         DataFormatter formatter = new DataFormatter();
 
@@ -111,6 +118,7 @@ public class ParticipantController {
         return formatter.formatCellValue(cell);
     }
 
+    @ApiOperation(value = "Covertir un entier en string", notes = "cette methode permet de convertir une variable de type INT en STRING", response = Participant.class)
     private int convertStringToInt(String str) {
         int result = 0;
         if (str == null || str.isEmpty() || str.trim().isEmpty()) {

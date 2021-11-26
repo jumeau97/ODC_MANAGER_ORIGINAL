@@ -61,6 +61,9 @@ public class AdminController {
     }
     //listeByID
     @GetMapping("/adminById/{id}")
+    @ApiOperation(value = "renvoi les informations d'un administrateur", notes = "cette methode permet de chercher et renvoyer les informations d'un seul administrateur s'il existe"
+            + "dans la BDD", response = Administrateur.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Administrateur recuperer avec succès") })
     public Administrateur AdminById(@PathVariable Long id) {
 		return adminService.AdminById(id);
 	}
@@ -73,8 +76,4 @@ public class AdminController {
     public void delete(@PathVariable(name = "id") Long id){
     	adminService.deleteAdmin(id);
     }
-
-    //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){
-        //return new ResponseEntity<>(adminService.deleteAdmin(id), HttpStatus.OK);
-
 }

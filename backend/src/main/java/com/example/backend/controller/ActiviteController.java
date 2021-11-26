@@ -27,7 +27,7 @@ public class ActiviteController {
     //lister toutes les activités
     @GetMapping("/activites")
     @ApiOperation(value = "renvoi la liste des activités", notes = "cette methode permet de chercher et renvoyer la liste des activités qui existent"
-			+ "dans la BDD", responseContainer = "liste<Activité>")
+			+ "dans la BDD", responseContainer = "liste<Activité>", response = Activite.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des activités / une liste vide") })
     public List<Activite> getAllActivite(){
     return activiteService.getAllActivite();
@@ -64,7 +64,7 @@ public class ActiviteController {
 
     //SUPPRIMER ACTIVITE
      @DeleteMapping("/supprimerActivite/{Id_activite}")
-     @ApiOperation(value = "supprimer une activité", notes = "cette methode permet de supprimer une activité par son id")
+     @ApiOperation(value = "supprimer une activité", notes = "cette methode permet de supprimer une activité par son id", response = Activite.class)
  	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant a été supprimé"),
  	@ApiResponse(code = 404, message = "aucune activité avec cet id n'existe dans la BDD") })
     public String supprimerActiviteById(@PathVariable ("Id_activite") long Id_activite){
