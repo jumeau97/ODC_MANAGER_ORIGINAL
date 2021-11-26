@@ -2,8 +2,6 @@ package com.example.backend.controller;
 
 
 import com.example.backend.model.Activite;
-import com.example.backend.model.Administrateur;
-import com.example.backend.repository.ActiviteRepository;
 import com.example.backend.service.ActiviteService;
 
 import io.swagger.annotations.Api;
@@ -12,8 +10,11 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -49,7 +50,7 @@ public class ActiviteController {
 			@ApiResponse(code = 400, message = "l'objet activité n'est pas valide") })
     public void modifierActivite(@RequestBody Activite activite, @PathVariable Long Id_activite) {
     this.activiteService.modifierActivite(Id_activite, activite);
-    
+
      }
 
     //AVOIR UNE ACTIVITE PAR ID²
@@ -70,4 +71,14 @@ public class ActiviteController {
     return this.activiteService.supprimerActiviteById(Id_activite);
      }
 
+     //liste des activités par annnée
+     @GetMapping("/actviteAnnee/{annee}")
+    public List<Activite> listAnnee(@PathVariable("annee") String annee){
+        return activiteService.getActiviteByAnnee(annee);
+    }
+    //liste des activités par Month
+    @GetMapping("/actviteByMonth/{year}-{month}")
+    public List<Activite> listByMonth(@PathVariable("year") int year, @PathVariable("month") int month ){
+        return activiteService.getActiviteByMonth(year,month);
+    }
 }
