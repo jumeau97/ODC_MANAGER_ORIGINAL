@@ -24,6 +24,7 @@ import com.example.backend.enumeration.TypeActivite;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +36,12 @@ import java.util.List;
 public class Activite {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long Id_activite;
+    private Long IdActivite;
     private  String libelle;
     @Enumerated(EnumType.STRING)
     private  TypeActivite type;
-    private Date date_debut;
-    private Date date_fin;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
     @Enumerated(EnumType.STRING)
     private Etat etat;
     @ManyToOne

@@ -37,8 +37,8 @@ public class ExerciceServiceImpl implements ExerciceService{
 	public void updateExcercice(Long id, Exercice exercice) {
 		Exercice exercice1 = exerciceRepository.findById(id).get();
         exercice1.setAnnee(exercice.getAnnee());
-        exercice1.setDate_debut(exercice.getDate_debut());
-        exercice1.setDate_fin(exercice.getDate_fin());
+        exercice1.setDateDebut(exercice.getDateDebut());
+        exercice1.setDateFin(exercice.getDateFin());
         exercice1.setStatut(exercice.getStatut());
         exercice1.setEtat(exercice.getEtat());
 	}
