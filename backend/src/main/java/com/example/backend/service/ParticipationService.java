@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.model.LogActivites;
 import com.example.backend.model.Participation;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +15,6 @@ public interface ParticipationService {
     public void updateParticipation(Long id, Participation p);
     public List<Participation> getAllParticipation();
     public Participation getParticipationById(Long id);
+    List<Participation>participantByActivite(Long IdActivite);
 
 }
