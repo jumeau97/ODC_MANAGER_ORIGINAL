@@ -47,6 +47,7 @@ public class AdminController {
     if(!errors.isEmpty()) {
     	throw new InvalidEntityException("l'administrateur n'est pas valide",ErrorCodes.ADMINISTRATEUR_INVALID,errors);
     }
+    System.out.println(admin);
     return new ResponseEntity<>(adminService.saveAdmin(admin), HttpStatus.OK);
     }
 

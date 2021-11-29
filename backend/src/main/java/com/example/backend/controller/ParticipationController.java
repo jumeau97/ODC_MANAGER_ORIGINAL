@@ -56,7 +56,7 @@ public class ParticipationController {
         return participationService.getAllParticipation();
     }
 
-    @GetMapping("/getActivite/{id}")
+    @GetMapping("/getParticipation/{id}")
     @ApiOperation(value = "rechercher un participation", notes = "cette methode permet de rechercher un participant par son id", response = Participation.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant trouvé dans la BDD"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
@@ -67,5 +67,13 @@ public class ParticipationController {
     @GetMapping("/paticipantActivite/{IdActivite}")
     public List<Participation>participantByActivite(@PathVariable("IdActivite") Long IdActivite){
         return participationService.participantByActivite(IdActivite);
+    }
+
+    @GetMapping("/getParticipantActivite/{id}")
+    @ApiOperation(value = "rechercher la liste des participants par activite", notes = "cette methode permet de rechercher tous les participants dans une activité donné", response = Participation.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Liste des participants trouvé"),
+            @ApiResponse(code = 404, message = "aucune liste trouvé") })
+    public List<Participation> getParticipantByActivite(@PathVariable ("id") Long Id_activite){
+        return participationService.participantByActivite(Id_activite);
     }
 }
