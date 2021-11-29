@@ -3,7 +3,11 @@ package com.example.backend.service;
 import java.util.List;
 
 
-
+import com.example.backend.Exception.EntityNotFoundException;
+import com.example.backend.Exception.ErrorCodes;
+import com.example.backend.Exception.InvalidEntityException;
+import com.example.backend.validator.AdministrateurValidator;
+import com.example.backend.validator.ExerciceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +21,12 @@ public class ExerciceServiceImpl implements ExerciceService{
 	ExerciceRepository exerciceRepository;
 
 	@Override
-	public void ajoutExercice(Exercice exercice) {
+	public void ajoutExercice(Exercice exercice)
+	{
+		List<String> errors= ExerciceValidator.validator(exercice);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l' admin n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
+		}
 		 exerciceRepository.save(exercice);		
 	}
 
@@ -29,12 +38,19 @@ public class ExerciceServiceImpl implements ExerciceService{
 
 	@Override
 	public Exercice ExerciceById(Long id) {
-		return exerciceRepository.findById(id).get();
+
+		return exerciceRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
+				"Aucun role avec l'id = " + id + " n'a ete trouvé dans la BDD", ErrorCodes.ADMININSTRATEUR_NOT_FOUND)
+		);
 	}
 
 	@Override
 	@Transactional
 	public void updateExcercice(Long id, Exercice exercice) {
+		List<String> errors= ExerciceValidator.validator(exercice);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l'exercie n'est pas valide", ErrorCodes.EXERCICE_INVALID, errors);
+		}
 		Exercice exercice1 = exerciceRepository.findById(id).get();
         exercice1.setAnnee(exercice.getAnnee());
         exercice1.setDateDebut(exercice.getDateDebut());
@@ -51,6 +67,7 @@ public class ExerciceServiceImpl implements ExerciceService{
 
 	@Override
 	public List<Exercice> getExerciceByAnnee(String annee) {
+
 		return exerciceRepository.getExerciceByAnnee(annee);
 	}
 
