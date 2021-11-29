@@ -60,20 +60,4 @@ public class ActiviteImp implements ActiviteService{
         LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
         return activiteRepository.getActiviteByDateDebutGreaterThanEqualAndDateDebutLessThanEqual(start, end);
     }
-
-
-
-
-
-   /* @Override
-    public List<Activite> getActiviteByExercice(Long id, Exercice exercice) {
-        return activiteRepository.findById(id).get();
-    }
-
-    @Override
-    public List<Activite> getActiviteByAnnee(String annee) {
-        return activiteRepository.findActiviteByAnnee(annee);
-    }*/
-
-
 }
