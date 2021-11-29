@@ -1,14 +1,12 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Activite;
-import com.example.backend.model.Exercice;
 import com.example.backend.repository.ActiviteRepository;
-import com.example.backend.repository.ExerciceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +14,6 @@ import java.util.List;
 public class ActiviteImp implements ActiviteService{
     @Autowired
     ActiviteRepository activiteRepository;
-    ExerciceRepository exerciceRepository;
 
     @Override
     public String ajouterActivite(Activite activite) {

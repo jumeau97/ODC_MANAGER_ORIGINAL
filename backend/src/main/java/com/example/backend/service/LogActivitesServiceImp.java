@@ -30,12 +30,16 @@ LogActivitesRepository logActivitesRepository;
 		
 	}
 
+	@Override
+	public List<LogActivites> listByActivite(Long IdActivite) {
+		return logActivitesRepository.findAllByActiviteId(IdActivite);
+	}
 
 
 	@Override
 	public void deleteLogActivitesByid(Long id_LogActivites) {
 		logActivitesRepository.deleteById(id_LogActivites);
-		
 	}
+
 
 }
