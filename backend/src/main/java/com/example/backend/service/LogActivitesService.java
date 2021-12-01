@@ -9,6 +9,6 @@ public interface LogActivitesService {
      void deleteLogActivitesByid(Long id_LogActivites);
      List<LogActivites> listLogActivites();
      LogActivites  listLogActivitebyid(Long id_LogActivites);
-    List<LogActivites>listByActivite(Long IdActivite);
+     List<LogActivites>listByActivite(Long IdActivite);
 
 }

@@ -24,12 +24,13 @@ import lombok.ToString;
 public class Responsable {
    @Id 
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_responsable;
-   
+    private Long id_responsable;   
     private String nom;
     private String prenom;
     private Long telephone;
     private String domaine;
+    private String email;
+    private String photoUrl;
     @Enumerated(EnumType.STRING)
     private TypeResponsable type;
     @Enumerated(EnumType.STRING)

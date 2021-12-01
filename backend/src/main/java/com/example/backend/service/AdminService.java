@@ -10,5 +10,6 @@ public interface AdminService {
 	 Administrateur updateAdmin(Long id, Administrateur admin);
 	 Administrateur AdminById(Long id);
 	 void deleteAdmin(Long id);
+	 Administrateur findByEmail(String Email);
 
 }

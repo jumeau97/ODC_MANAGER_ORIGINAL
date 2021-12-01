@@ -57,11 +57,11 @@ public class RoleServiceImp implements RoleService {
 
 	@Override
 	public void suprimer_role(Long Id) {
-		List<Administrateur> admin = adminRepository.findAllByRoleId(Id);
-		if (!admin.isEmpty()) {
-			throw new InvalidOperationException("vous ne pouvez pas supprimer un role assigné a un administrateur",
-					ErrorCodes.ROLE_ALREADY_EXISTE);
-		}
+//		List<Administrateur> admin = adminRepository.findAllByRoleId(Id);
+//		if (!admin.isEmpty()) {
+//			throw new InvalidOperationException("vous ne pouvez pas supprimer un role assigné a un administrateur",
+//					ErrorCodes.ROLE_ALREADY_EXISTE);
+//		}
 		rolerepository.deleteById(Id);
 	}
 
@@ -77,10 +77,9 @@ public class RoleServiceImp implements RoleService {
 				);
 	}
 
-    @Override
-    public Role verifie_role(String libelle) {
-        return rolerepository.findByLibelle(libelle);
-    }
-        
+	@Override
+	public Role verifie_role(String libelle) {
+		return rolerepository.findByLibelle(libelle);
+	}
 
 }

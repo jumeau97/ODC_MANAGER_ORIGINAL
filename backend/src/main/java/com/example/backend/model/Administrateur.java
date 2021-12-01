@@ -28,8 +28,8 @@ public class Administrateur implements Serializable {
 	private Long id;
 	private String nom;
 	private String prenom;
-	private String login;
 	private String password;
+	private String photoUrl;
 	@Email
 	private String email;
 	@Enumerated(EnumType.STRING)
@@ -37,7 +37,8 @@ public class Administrateur implements Serializable {
 	private Long telephone;
 
 	// @NotNull(message = "Veuillez renseigner le rôle...")
-	@ManyToOne
-	private Role role;
+	@OneToMany(mappedBy = "administrateur", fetch = FetchType.EAGER)
+	@JsonProperty(access =Access.WRITE_ONLY)
+	private List<Role> roles;
 
 }

@@ -2,22 +2,23 @@ package com.example.backend.service;
 
 import com.example.backend.Exception.EntityNotFoundException;
 import com.example.backend.Exception.ErrorCodes;
-import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.model.Administrateur;
 import com.example.backend.repository.AdminRepository;
-import com.example.backend.validator.AdministrateurValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    AdminRepository adminRepository;
+	@Autowired
+	AdminRepository adminRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<Administrateur> list() {
@@ -26,43 +27,32 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public Administrateur saveAdmin(Administrateur admin) {
-		List<String> errors= AdministrateurValidator.validator(admin);
-		if (!errors.isEmpty()){
-			throw new InvalidEntityException("l' admin n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
-		}
+		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		return adminRepository.save(admin);
 	}
 
 	@Override
 	public Administrateur updateAdmin(Long id, Administrateur admin) {
-		List<String> errors= AdministrateurValidator.validator(admin);
-		if (!errors.isEmpty()){
-			throw new InvalidEntityException("l' admin à modifier n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
-		}
-		Administrateur administrateur=adminRepository.getById(id);
-		administrateur.setNom(admin.getNom());
-		administrateur.setPrenom(admin.getPrenom());
-		administrateur.setEmail(admin.getEmail());
-		administrateur.setEtat(admin.getEtat());
-		administrateur.setRole(admin.getRole());
-		administrateur.setLogin(admin.getLogin());
-		administrateur.setPassword(admin.getPassword());
-		administrateur.setTelephone(admin.getTelephone());
-		return adminRepository.save(administrateur);
+		return adminRepository.save(admin);
 	}
 
 	@Override
 	public void deleteAdmin(Long id) {
 		adminRepository.deleteById(id);
-		
+
 	}
 
 	@Override
 	public Administrateur AdminById(Long id) {
-		return adminRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
-				"Aucun role avec l'id = " + id + " n'a ete trouvé dans la BDD", ErrorCodes.ADMININSTRATEUR_NOT_FOUND)
-		);
+		return adminRepository.findById(id).get();
 	}
 
-   
+	@Override
+	public Administrateur findByEmail(String Email) {
+		return adminRepository.findByEmail(Email)
+				.orElseThrow(() -> new EntityNotFoundException(
+						"Aucun administrateur avec l'email= " + Email + "n'a été trouvé dans la BDD",
+						ErrorCodes.ADMININSTRATEUR_NOT_FOUND));
+	}
+
 }

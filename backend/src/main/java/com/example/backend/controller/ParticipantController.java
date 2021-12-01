@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
+import com.example.backend.repository.ParticipantRepository;
 import com.example.backend.service.ParticipantService;
 import com.example.backend.service.ParticipantServiceImplement;
 
@@ -21,8 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/odcmanager/api/v1")
@@ -31,22 +32,25 @@ import java.util.List;
 public class ParticipantController {
     @Autowired
     ParticipantService participantService;
+    
+    @Autowired
+    ParticipantRepository participantRepository;
 
     @PostMapping(value="/participant")
     @ApiOperation(value = "Enregistrer un participant", notes = "cette methode permet d'ajouter un participant", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participant cree"),
 			@ApiResponse(code = 400, message = "l'objet participant n'est pas valide") })
-    public String save(@RequestBody Participant participant){
+    public void save(@RequestBody Participant participant){
         participantService.addParticipant(participant);
-        return "Participant ajouté avec succèss...";
+        
     }
     @DeleteMapping(value = "/deleteParticipant/{id}")
     @ApiOperation(value = "supprimer un participant", notes = "cette methode permet de supprimer un participant par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
-    public String delete (@PathVariable("id") Long id){
+    public void delete (@PathVariable("id") Long id){
        participantService.deleteParticipant(id);
-       return "Participant supprimé avec succèss...";
+      
     }
 
     @PutMapping(path = "/participant/{id}")
@@ -63,9 +67,7 @@ public class ParticipantController {
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
-    public List<Participant> list()
-    {
-
+    public List<Participant> list(){
         return participantService.listParticipant();
     }
     
@@ -124,5 +126,4 @@ public class ParticipantController {
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
     }
-
 }

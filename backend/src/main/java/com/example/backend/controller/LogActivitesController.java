@@ -2,7 +2,6 @@ package com.example.backend.controller;
 
 import java.util.List;
 
-import com.example.backend.model.Activite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +27,7 @@ public class LogActivitesController {
 	@PostMapping("/addlog")
     public void savelog(@RequestBody LogActivites logactivites){
 		logactivitesService.addLogActivites(logactivites);
+       
     }
 	//lister historique
 	  @GetMapping("/listehistorique")
@@ -43,10 +43,10 @@ public class LogActivitesController {
 	    @DeleteMapping("/deletehistoire/{id}")
 	    public void suppressionhistoire(@PathVariable Long id){
 	    	logactivitesService.deleteLogActivitesByid(id);
+	        
 	    }
-	//liste par activités
-	@GetMapping("/logActivite/{IdActivite}")
-	public List<LogActivites>listByActivite(@PathVariable("IdActivite") Long IdActivite){
-		return logactivitesService.listByActivite(IdActivite);
-	}
+	    @GetMapping("/logActivite/{IdActivite}")
+		public List<LogActivites>listByActivite(@PathVariable("IdActivite") Long IdActivite){
+			return logactivitesService.listByActivite(IdActivite);
+		}
 }
