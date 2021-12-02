@@ -1,7 +1,5 @@
 package com.example.backend.controller;
 
-
-import com.example.backend.model.LogActivites;
 import com.example.backend.model.Participation;
 import com.example.backend.service.ParticipationService;
 
@@ -62,11 +60,6 @@ public class ParticipationController {
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
     public Participation getParticipationById(@PathVariable("id") Long id) {
         return participationService.getParticipationById(id);
-    }
-    //participant par activités
-    @GetMapping("/paticipantActivite/{IdActivite}")
-    public List<Participation>participantByActivite(@PathVariable("IdActivite") Long IdActivite){
-        return participationService.participantByActivite(IdActivite);
     }
 
     @GetMapping("/getParticipantActivite/{id}")

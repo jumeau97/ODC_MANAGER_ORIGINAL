@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import com.example.backend.repository.ParticipationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,6 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public List<Participation> participantByActivite(Long IdActivite) {
-		return participationRepo.paticipantByActivite(IdActivite);
+		return participationRepo.getParticipationByActiviteAndEtat(IdActivite);
 	}
-
-
 }
